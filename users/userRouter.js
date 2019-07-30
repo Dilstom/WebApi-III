@@ -26,7 +26,16 @@ router.post('/:id/posts', validateUserId, validateUser, (req, res) => {
   });
 });
 
-router.get('/', (req, res) => {});
+router.get('/', (req, res) => {
+ usersDb
+  .get()
+  .then(users => {
+   res.status(200).json(users);
+  })
+  .catch(err => {
+   res.status(500).json(err);
+  });
+});
 
 router.get('/:id', (req, res) => {});
 
