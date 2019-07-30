@@ -24,12 +24,15 @@ router.delete('/:id', validatePostId, (req, res) => {
 });
 });
 
-router.delete('/:id', (req, res) => {
-
+router.put('/:id', validatePostId, validatePostBody, (req, res) => {
+ postsDB
+  .update(req.params.id, req.body)
+  .then(post => {
+   res.status(201).json(post);
+  })
+  .catch(err => {
+   res.status(500).json(err);
 });
-
-router.put('/:id', (req, res) => {
-
 });
 
 // custom middleware
