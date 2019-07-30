@@ -70,7 +70,16 @@ router.delete('/:id', validateUserId, (req, res) => {
   });
 });
 
-router.put('/:id', (req, res) => {});
+router.put('/:id', validateUserId, validateUser, (req, res) => {
+ usersDb
+  .update(req.params.id, req.body)
+  .then(user => {
+   res.status(201).json(user);
+  })
+  .catch(err => {
+   res.status(500).json(err);
+  });
+});
 
 //custom middleware
 
