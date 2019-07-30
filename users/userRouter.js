@@ -42,7 +42,16 @@ router.get('/:id', validateUserId, (req, res) => {
  res.status(200).json(req.user);
 });
 
-router.get('/:id/posts', (req, res) => {});
+router.get('/:id/posts', validateUserId, (req, res) => {
+ usersDb
+  .getUserPosts(req.params.id)
+  .then(userPosts => {
+   res.status(200).json(userPosts);
+  })
+  .catch(err => {
+   res.status(500).json(err);
+  });
+});
 
 router.delete('/:id', (req, res) => {});
 
