@@ -13,8 +13,15 @@ router.get('/:id', validatePostId, (req, res) => {
  res.status(200).json(req.post);
 });
 
-router.get('/:id', (req, res) => {
-
+router.delete('/:id', validatePostId, (req, res) => {
+ postsDB
+  .remove(req.params.id)
+  .then(removed => {
+   res.status(200).json({ message: 'The post has has been removed' });
+  })
+  .catch(err => {
+   res.status(500).json(err);
+});
 });
 
 router.delete('/:id', (req, res) => {
