@@ -37,7 +37,10 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {});
+router.get('/:id', validateUserId, (req, res) => {
+ //  console.log('in get: ', req.user); // { id: 6, name: 'Boromir' }
+ res.status(200).json(req.user);
+});
 
 router.get('/:id/posts', (req, res) => {});
 
