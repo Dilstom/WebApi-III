@@ -14,7 +14,17 @@ router.post('/', (req, res) => {
   });
 });
 
-router.post('/:id/posts', (req, res) => {});
+router.post('/:id/posts', validateUserId, validateUser, (req, res) => {
+ const postInfo = { ...req.body, user_id: req.params.id };
+ postsDb
+  .insert(postInfo)
+  .then(post => {
+   res.status(201).json(post);
+  })
+  .catch(err => {
+   res.status(500).json(err);
+  });
+});
 
 router.get('/', (req, res) => {});
 
