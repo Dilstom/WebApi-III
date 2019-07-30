@@ -83,7 +83,22 @@ router.put('/:id', validateUserId, validateUser, (req, res) => {
 
 //custom middleware
 
-function validateUserId(req, res, next) {}
+function validateUserId(req, res, next) {
+ usersDb
+  .getById(req.params.id)
+  .then(user => {
+   if (user) {
+    req.user = user;
+    // console.log(req.user); // { id: 6, name: 'Boromir' }
+    next();
+   } else {
+    res.status(404).json({ message: 'Id not found' });
+   }
+  })
+  .catch(err => {
+   res.status(500).json(err);
+  });
+}
 
 function validateUser(req, res, next) {}
 
