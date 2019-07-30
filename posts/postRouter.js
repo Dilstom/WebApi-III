@@ -21,7 +21,7 @@ router.delete('/:id', validatePostId, (req, res) => {
   })
   .catch(err => {
    res.status(500).json(err);
-});
+  });
 });
 
 router.put('/:id', validatePostId, validatePostBody, (req, res) => {
@@ -32,7 +32,7 @@ router.put('/:id', validatePostId, validatePostBody, (req, res) => {
   })
   .catch(err => {
    res.status(500).json(err);
-});
+  });
 });
 
 // custom middleware
@@ -54,6 +54,14 @@ function validatePostId(req, res, next) {
   });
 }
 
-};
+function validatePostBody(req, res, next) {
+ if (Object.keys(req.body).length === 0) {
+  res.status(400).json({ message: 'missing post data' });
+ } else if (!req.body.text) {
+  res.status(400).json({ message: 'missing required text field' });
+ } else {
+  next();
+ }
+}
 
 module.exports = router;
