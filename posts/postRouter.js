@@ -9,6 +9,8 @@ router.get('/', (req, res) => {
  });
 });
 
+router.get('/:id', validatePostId, (req, res) => {
+ res.status(200).json(req.post);
 });
 
 router.get('/:id', (req, res) => {
