@@ -41,7 +41,7 @@ function validatePostId(req, res, next) {
  postsDB
   .getById(req.params.id)
   .then(post => {
-   console.log(post); // { id: 9, text: 'Well, that rules you out.', user_id: 3 }
+   //    console.log(post); // { id: 9, text: 'Well, that rules you out.', user_id: 3 }
    if (post) {
     req.post = post;
     next();
